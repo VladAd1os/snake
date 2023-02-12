@@ -17,7 +17,8 @@ export class Bonus {
     }
     draw(ctx) {
         if (this.lifeTime > 0) {
-        ctx.fillRect(this.point.x, this.point.y, SIZE, SIZE);
+            ctx.fillStyle = 'red';
+            ctx.fillRect(this.point.x, this.point.y, SIZE, SIZE);
         }
     }
     regenerate(difficulty, w, h) {

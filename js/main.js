@@ -32,8 +32,13 @@ function draw(ts) {
 
         gLastUbdate = ts;
     }
+
+    
+    gCtx.save();
     gBonus.draw(gCtx);
+    gCtx.restore();
     window.requestAnimationFrame(draw);
+
 }
 
 
