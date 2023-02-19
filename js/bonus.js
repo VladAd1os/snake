@@ -4,14 +4,18 @@ const SIZE = 5;
 const DEFAULT_LIFETIME = 2;
 
 export class Bonus {
-    constructor () {
+    constructor (wh) {
         this.scoreValue = 0;
         this.lifeTime = DEFAULT_LIFETIME;
         this.point = new Point(0, 0);
+        this.wh = wh;
     }
     update() {
         if (this.lifeTime > 0) {
             this.lifeTime -= 1;
+        } 
+        if (this.lifeTime === 0) {
+            this.regenerate(0, this.wh[0], this.wh[1]);
         }
 
     }
@@ -22,8 +26,8 @@ export class Bonus {
         }
     }
     regenerate(difficulty, w, h) {
-        this.point.x = Math.random() * w;
-        this.point.y = Math.random() * h;
+        this.point.x = Math.random() * (w - SIZE);
+        this.point.y = Math.random() * (h - SIZE);
         this.lifeTime = DEFAULT_LIFETIME;
     }
 }
