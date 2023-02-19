@@ -1,4 +1,5 @@
 import {Bonus} from "./bonus.js";
+import {Snake} from "./snake.js";
 
 let gBonus = null;
 let WH = [0, 0];
@@ -7,6 +8,7 @@ let gTimesTamp = 0;
 let gCtx = null;
 let UPDATE_PERIOD_MS = 2000;
 let gLastUbdate = 0;
+let gSnake = null;
 
 function draw(ts) {
     if (ts - gTimesTamp < 200) {
@@ -25,6 +27,7 @@ function draw(ts) {
 
     if (ts - gLastUbdate > UPDATE_PERIOD_MS) {
         gBonus.update();
+        gSnake.update();
 
         if (gBonus.lifeTime == 0) {
             gBonus.regenerate(0, WH[0], WH[1]);
@@ -37,8 +40,12 @@ function draw(ts) {
     gCtx.save();
     gBonus.draw(gCtx);
     gCtx.restore();
-    window.requestAnimationFrame(draw);
 
+    gCtx.save();
+    gSnake.draw(gCtx);
+    gCtx.restore();
+
+    window.requestAnimationFrame(draw);
 }
 
 
@@ -50,6 +57,7 @@ function main() {
     WH = [cnv.width, cnv.height];
     gBonus = new Bonus();
     gBonus.regenerate(0, WH[0], WH[1]);
+    gSnake = new Snake();
 }
 
 document.body.onload = main;

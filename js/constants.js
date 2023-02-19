@@ -1,0 +1,7 @@
+export class Constants {
+    static PERIOD_MS = 200;
+    static UPDATE_PERIOD_MS = 2000;
+    static CELL_SIZE = 10;
+    static CLR_BOARD = 'grey';
+    static CLR_MAIN = 'white';
+}
