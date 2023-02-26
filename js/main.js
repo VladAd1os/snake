@@ -39,3 +39,10 @@ function main() {
 }
 
 document.body.onload = main;
+
+document.body.addEventListener('keydown',
+    (event) => {
+        console.log('event : %s', event.code);
+        gGame.onkeydown(event.code);
+    }
+);

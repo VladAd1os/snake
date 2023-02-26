@@ -26,7 +26,7 @@ export class Snake {
 
     }
     draw(ctx) {
-        ctx.fillStyle = 'yellow';
+        ctx.fillStyle = 'red';
         for (let pt of this.points) {
             ctx.fillRect(pt.x, pt.y, CELL_SIZE, CELL_SIZE);
         }
@@ -55,5 +55,12 @@ export class Snake {
         if (this.state == State.MOVING) {
             this.points.pop();
         }
+    }
+
+    setDirection(dir) {
+        if (this.direction.opposite().dir == dir) {
+            return;
+        }
+        this.direction.dir = dir;
     }
 }
