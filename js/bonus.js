@@ -1,7 +1,7 @@
 import {Point} from "./utils.js";
 
 const SIZE = 5;
-const DEFAULT_LIFETIME = 2;
+export const DEFAULT_LIFETIME = 2;
 
 export class Bonus {
     constructor (wh) {

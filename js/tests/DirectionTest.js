@@ -10,7 +10,7 @@ export function DTests() {
             direction.dir = Direction.S;
             assertEquals(Direction.N, direction.opposite());
             direction.dir = Direction.N;
-            assertEquals(Direction.N, direction.opposite());
+            assertEquals(Direction.S, direction.opposite());
             direction.dir = Direction.E;
             assertEquals(Direction.W, direction.opposite());
             direction.dir = Direction.W;
