@@ -4,4 +4,5 @@ export class Constants {
     static CELL_SIZE = 10;
     static CLR_BOARD = 'grey';
     static CLR_SNOW = 'blue';
+    static HUD_H = 20;
 }

@@ -20,7 +20,8 @@ export class Snake {
         this.size = START_SIZE;
     }
     eat(food) {
-
+        this.state = State.GROWING;
+        this.size += 1;
     }
     setDirection(direction) {
 

@@ -14,7 +14,7 @@ function draw(ts) {
 
     gTimesTamp = ts;
     gCtx.fillStyle = Constants.CLR_BOARD;
-    gCtx.clearRect(0, 0, WH[0], WH[1]);
+    gCtx.clearRect(0, 0, WH[0], WH[1] + Constants.HUD_H);
 
     if (ts - gLastUpdate > Constants.UPDATE_PERIOD_MS) {
         gGame.update();
@@ -28,13 +28,22 @@ function draw(ts) {
     gHandle = window.requestAnimationFrame(draw);
 }
 
-
+function setPause(val) {
+    if (val) {
+        window.cancelAnimationFrame(gHandle);
+        gHandle = -1;
+    } else {
+        if (gHandle == -1) {
+            gHandle = window.requestAnimationFrame(draw);
+        }
+    }
+}
 
 function main() {
     let cnv = document.getElementById('c');
     gCtx = cnv.getContext('2d');
-    WH = [cnv.width, cnv.height];
-    gGame = new Game(WH);
+    WH = [cnv.width, cnv.height - Constants.HUD_H];
+    gGame = new Game(WH, setPause);
     gHandle = window.requestAnimationFrame(draw);
 }
 
