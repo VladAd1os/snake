@@ -1,5 +1,6 @@
 import {Point} from "./utils.js";
 import {Direction} from "./direction.js";
+import { Constants } from "./constants.js";
 
 class State {
     static MOVING = 0;
@@ -12,7 +13,7 @@ const START_SIZE = 5;
 const CELL_SIZE = 10;
 
 export class Snake {
-    constructor (onCrashCb) {
+    constructor (onCrashCb, wh) {
         this.lastRemoved = null;
         this.direction = new Direction();
         this.state = State.GROWING;
@@ -20,6 +21,7 @@ export class Snake {
         this.points = [START_XY];
         this.size = START_SIZE;
         this.onCrashCb = onCrashCb;
+        this.wh = wh;
     }
     eat(food) {
         console.log(food.point.toString() , this.getHead().toString());
@@ -47,6 +49,11 @@ export class Snake {
     }
     update() {
         let np = this.direction.nextPoint(this.getHead());
+        np.x = np.x % this.wh[0];
+        np.y = np.y % this.wh[1];
+
+        if (np.x < 0) np.x = this.wh[0] - Constants.CELL_SIZE;
+        if (np.y < 0) np.y = this.wh[1] - Constants.CELL_SIZE;
         if (this.isCrashed(np)) {
             console.log('Snake DIED');
             this.onCrashCb();

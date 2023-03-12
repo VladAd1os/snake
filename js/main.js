@@ -9,7 +9,8 @@ let gLastUpdate = 0;
 let gGame = null;
 
 function draw(ts) {
-    if (ts - gTimesTamp < 200) {
+    if (ts - gTimesTamp < gGame.getPeriod()) {
+        if (gGame.paused) return;
         gHandle = window.requestAnimationFrame(draw);
         return;
     }

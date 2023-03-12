@@ -5,6 +5,14 @@ import { Snow } from "./snow.js";
 import { Constants } from "./constants.js";
 import { Hud } from "./Hud.js";
 
+const DIFF_TABLE = [
+    Constants.PERIOD_MS,
+    Constants.PERIOD_MS * 0.8,
+    Constants.PERIOD_MS * 0.5,
+    Constants.PERIOD_MS * 0.3,
+    Constants.PERIOD_MS * 0.1,
+]
+
 export class Game {
     constructor(wh, setPausedCb) {
         this.isOver = false;
@@ -12,10 +20,10 @@ export class Game {
         this.difficulty = 0;
         this.score = 0;
         this.setPause = setPausedCb;
-        this.bonus = new Bonus (0, wh);
+        this.bonus = new Bonus (wh);
         this.actors = [];
         this.snake = new Snake(() => 
-        this.onSnakeCrashed());
+        this.onSnakeCrashed(),wh);
         //this.actors.push(new Bonus (wh));
         this.actors.push(new Snow(wh));
         this.hud = new Hud(wh, this.difficulty, this.score, this.snake.size);
@@ -35,6 +43,9 @@ export class Game {
             this.bonus.regenerate(this.difficulty);
             this.hud.onSnakeGrowth(this.snake.size);
             this.hud.onScoreChange(this.score);
+            if (this.score % 2 == 0) {
+                this.difficulty += 1;
+            }
         }
     }
 
@@ -77,5 +88,12 @@ export class Game {
         this.setPause(this.paused);
         this.paused = true;
         this.isOver = true;
+    }
+
+    getPeriod() {
+        if (this.difficulty >= DIFF_TABLE.length) {
+            return DIFF_TABLE[DIFF_TABLE.length - 1];
+        }
+        return DIFF_TABLE[this.difficulty];
     }
 }

@@ -17,7 +17,7 @@ export class Bonus {
             this.lifeTime -= 1;
         } 
         if (this.lifeTime === 0) {
-            this.regenerate(0, this.wh[0], this.wh[1]);
+            this.regenerate(0);
         }
 
     }
@@ -27,12 +27,13 @@ export class Bonus {
             ctx.fillRect(this.point.x, this.point.y, SIZE, SIZE);
         }
     }
-    regenerate(difficulty, w, h) {
+    regenerate(difficulty) {
         this.point.x = Math.random() * (this.wh[0] - SIZE);
         this.point.y = Math.random() * (this.wh[1] - SIZE);
         this.point.x -= (this.point.x % SIZE);
         this.point.y -= (this.point.y % SIZE);
         this.lifeTime = DEFAULT_LIFETIME;
+        //console.log(this.point.toString())
     }
 
     isCollision(point) {
