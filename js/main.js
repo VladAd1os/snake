@@ -10,8 +10,11 @@ let gGame = null;
 
 function draw(ts) {
     if (ts - gTimesTamp < 200) {
+        gHandle = window.requestAnimationFrame(draw);
+        return;
     }
-
+    
+    gHandle = window.requestAnimationFrame(draw);
     gTimesTamp = ts;
     gCtx.fillStyle = Constants.CLR_BOARD;
     gCtx.clearRect(0, 0, WH[0], WH[1] + Constants.HUD_H);
@@ -25,7 +28,6 @@ function draw(ts) {
     
     gGame.draw(gCtx);
 
-    gHandle = window.requestAnimationFrame(draw);
 }
 
 function setPause(val) {

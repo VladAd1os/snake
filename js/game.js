@@ -11,9 +11,10 @@ export class Game {
         this.difficulty = 0;
         this.score = 0;
         this.setPause = setPausedCb;
-        this.bonus = new Bonus (wh);
+        this.bonus = new Bonus (0, wh);
         this.actors = [];
-        this.snake = new Snake(this.onSnakeCrashed);
+        this.snake = new Snake(() => 
+        this.onSnakeCrashed());
         //this.actors.push(new Bonus (wh));
         this.actors.push(new Snow(wh));
         this.hud = new Hud(wh, this.difficulty, this.score, this.snake.size);
@@ -71,5 +72,8 @@ export class Game {
 
     onSnakeCrashed () {
         console.log('onSnakeCrashed');
+        this.hud.onGameOver();
+        this.setPause(this.paused);
+        this.paused = true;
     }
 }
