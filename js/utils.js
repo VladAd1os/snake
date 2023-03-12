@@ -3,4 +3,7 @@ export class Point {
         this.x = x;
         this.y = y;
     }
+    getKey() {
+        return this.y * 1000 + this.x;
+    }
 }
