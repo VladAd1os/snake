@@ -22,6 +22,7 @@ export class Snake {
         this.onCrashCb = onCrashCb;
     }
     eat(food) {
+        console.log(food.point.toString() , this.getHead().toString());
         this.state = State.GROWING;
         this.size += 1;
     }
@@ -65,7 +66,7 @@ export class Snake {
             this.pointSet.delete(removedPoint);
         }
     }
-    
+
     /**
      * 
      * @param {Direction} dir 

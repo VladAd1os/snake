@@ -36,7 +36,7 @@ export class Bonus {
     }
 
     isCollision(point) {
-        return (point.x == this.point.x && this.point.y == this.point.y);
+        return (point.x == this.point.x && point.y == this.point.y);
     }
 
     isAlive() {
