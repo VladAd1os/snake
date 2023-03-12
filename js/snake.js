@@ -12,12 +12,14 @@ const START_SIZE = 5;
 const CELL_SIZE = 10;
 
 export class Snake {
-    constructor () {
+    constructor (onCrashCb) {
         this.lastRemoved = null;
         this.direction = new Direction();
         this.state = State.GROWING;
+        this.pointSet = new Set ([START_XY.getKey()]);
         this.points = [START_XY];
         this.size = START_SIZE;
+        this.onCrashCb = onCrashCb;
     }
     eat(food) {
         this.state = State.GROWING;
@@ -33,8 +35,8 @@ export class Snake {
         }
 
     }
-    isCrashed() {
-
+    isCrashed(np) {
+        return this.pointSet.has(np.getKey());
     }
     getHead() {
         return this.points[0];
@@ -43,8 +45,13 @@ export class Snake {
         return this.points[this.points.length - 1];
     }
     update() {
-        let np = this.direction.nextPoint(
-            this.getHead());
+        let np = this.direction.nextPoint(this.getHead());
+        if (this.isCrashed(np)) {
+            console.log('Snake DIED');
+            this.onCrashCb();
+        }   else {
+            this.pointSet.add(np.getKey());
+        }
         this.points.unshift(np);
 
         if (this.state == State.GROWING) {
@@ -54,10 +61,16 @@ export class Snake {
         }
 
         if (this.state == State.MOVING) {
-            this.points.pop();
+            let removedPoint = this.points.pop();
+            this.pointSet.delete(removedPoint);
         }
     }
-
+    
+    /**
+     * 
+     * @param {Direction} dir 
+     * @returns 
+     */
     setDirection(dir) {
         if (this.direction.opposite().dir == dir) {
             return;
