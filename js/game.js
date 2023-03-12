@@ -7,6 +7,7 @@ import { Hud } from "./Hud.js";
 
 export class Game {
     constructor(wh, setPausedCb) {
+        this.isOver = false;
         this.paused = false;
         this.difficulty = 0;
         this.score = 0;
@@ -75,5 +76,6 @@ export class Game {
         this.hud.onGameOver();
         this.setPause(this.paused);
         this.paused = true;
+        this.isOver = true;
     }
 }

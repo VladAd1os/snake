@@ -41,12 +41,16 @@ function setPause(val) {
     }
 }
 
+function init() {
+    gGame = new Game(WH, setPause);
+    gHandle = window.requestAnimationFrame(draw);
+}
+
 function main() {
     let cnv = document.getElementById('c');
     gCtx = cnv.getContext('2d');
     WH = [cnv.width, cnv.height - Constants.HUD_H];
-    gGame = new Game(WH, setPause);
-    gHandle = window.requestAnimationFrame(draw);
+    init();
 }
 
 document.body.onload = main;
@@ -54,6 +58,9 @@ document.body.onload = main;
 document.body.addEventListener('keydown',
     (event) => {
         console.log('event : %s', event.code);
+        if (gGame.isOver) {
+            init();
+        }
         gGame.onkeydown(event.code);
     }
 );
