@@ -24,8 +24,7 @@ export class Game {
         this.actors = [];
         this.snake = new Snake(() => 
         this.onSnakeCrashed(),wh);
-        //this.actors.push(new Bonus (wh));
-        this.actors.push(new Snow(wh));
+        //this.actors.push(new Snow(wh));
         this.hud = new Hud(wh, this.difficulty, this.score, this.snake.size);
         this.actors.push(this.snake);
         this.actors.push(this.bonus);

@@ -10,7 +10,7 @@ class State {
 
 const START_XY = new Point(20, 20);
 const START_SIZE = 5;
-const CELL_SIZE = 10;
+
 
 export class Snake {
     constructor (onCrashCb, wh) {
@@ -24,17 +24,13 @@ export class Snake {
         this.wh = wh;
     }
     eat(food) {
-        console.log(food.point.toString() , this.getHead().toString());
         this.state = State.GROWING;
         this.size += 1;
-    }
-    setDirection(direction) {
-
     }
     draw(ctx) {
         ctx.fillStyle = 'red';
         for (let pt of this.points) {
-            ctx.fillRect(pt.x, pt.y, CELL_SIZE, CELL_SIZE);
+            ctx.fillRect(pt.x, pt.y, Constants.CELL_SIZE, Constants.CELL_SIZE);
         }
 
     }
@@ -54,6 +50,7 @@ export class Snake {
 
         if (np.x < 0) np.x = this.wh[0] - Constants.CELL_SIZE;
         if (np.y < 0) np.y = this.wh[1] - Constants.CELL_SIZE;
+
         if (this.isCrashed(np)) {
             console.log('Snake DIED');
             this.onCrashCb();
@@ -70,7 +67,7 @@ export class Snake {
 
         if (this.state == State.MOVING) {
             let removedPoint = this.points.pop();
-            this.pointSet.delete(removedPoint);
+            this.pointSet.delete(removedPoint.getKey());
         }
     }
 
